@@ -1,0 +1,12 @@
+ INCLUDE_DIRECTORIES(/usr/local/include/pcl-1.8)
+
+ ADD_SUBDIRECTORY(thin-plate-splines)
+
+ SET(SRC_LIST main.cpp)
+
+ ADD_EXECUTABLE(Non-Rigid-Registar ${SRC_LIST})
+ SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+
+ #TARGET_LINK_LIBRARIES(Non-Rigid-Registar)
+
+ INSTALL(TARGETS Non-Rigid-Registar RUNTIME DESTINATION bin)
