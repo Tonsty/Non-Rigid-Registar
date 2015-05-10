@@ -1,5 +1,9 @@
- INCLUDE_DIRECTORIES(/usr/local/include/pcl-1.8)
-
+ IF (WIN32)
+ 	INCLUDE_DIRECTORIES(C:/Program Files/PCL/include/pcl-1.8)
+ ELSEIF (UNIX)
+ 	INCLUDE_DIRECTORIES(/usr/local/include/pcl-1.8)
+ ENDIF ()
+ 
  ADD_SUBDIRECTORY(thin-plate-splines)
 
  SET(SRC_LIST main.cpp)

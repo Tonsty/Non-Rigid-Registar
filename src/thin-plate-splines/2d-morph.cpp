@@ -12,24 +12,21 @@ int main(int argc, char**argv)
 
   for (int i = 0; i < 10; ++i)
   {
-    for (int j = 0; j < 10; ++j)
-    {
-      Coord_Diff sample;
-      sample.x = cos(i/5 * PI);
-      sample.y = sin(j/5 * PI);
-      sample.dx = 10;
-      sample.dy = 10;
-      samples->push_back(sample);
-    }
+	  Coord_Diff sample;
+	  sample.x = 0.5*cos(1.0f * i/5 * PI);
+	  sample.y = 0.5*sin(1.0f * i/5 * PI);
+	  sample.dx = 0.2;
+	  sample.dy = 0.2;
+	  samples->push_back(sample);
   }
 
   std::cout << "Start!" << std::endl;
 
-  TPS_Morpher morpher(samples, 1.0);
+  TPS_Morpher morpher(samples, 0.5);
   std::vector<Point> pts;
   Point pt;
-  pt.x = 1.0;
-  pt.y = 2.0;
+  pt.x = 0.3;
+  pt.y = 0.3;
   pts.push_back(pt);
   morpher.morph(pts);
   printf("%f %f\n", pts[0].x, pts[0].y);
