@@ -375,7 +375,7 @@ static void display()
   glColor3ub( 255, 255, 0 );
   glRasterPos2f (-0.95, -0.95);
   sprintf( tmp_str, "control points: %d, reqularization: %2.3f, bending energy: %4.3f",
-    control_points.size(), regularization, bending_energy );
+    (int)control_points.size(), regularization, bending_energy );
   draw_string( tmp_str );
   glEnable( GL_DEPTH_TEST );
 

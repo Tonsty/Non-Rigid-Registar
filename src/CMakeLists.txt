@@ -4,7 +4,7 @@
  	INCLUDE_DIRECTORIES(/usr/local/include/pcl-1.8)
  ENDIF ()
  
- ADD_SUBDIRECTORY(thin-plate-splines)
+ ADD_SUBDIRECTORY(thin_plate_splines optimal_nonrigid_icp)
 
  SET(SRC_LIST main.cpp)
 

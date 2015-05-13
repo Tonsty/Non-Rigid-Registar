@@ -1,0 +1,8 @@
+SET(SRC_LIST main.cpp)
+
+ADD_EXECUTABLE(optimal_nonrigid_icp ${SRC_LIST})
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+
+#TARGET_LINK_LIBRARIES(optimal_nonrigid_icp)
+
+INSTALL(TARGETS optimal_nonrigid_icp RUNTIME DESTINATION bin)
