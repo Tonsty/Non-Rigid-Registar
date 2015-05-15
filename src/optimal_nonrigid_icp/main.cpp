@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vtkSmartPointer.h>
-#include <vtkOBJReader.h>
+//#include <vtkOBJReader.h>
+#include <vtkPLYReader.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
@@ -10,6 +11,9 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkInteractorStyleRubberBandPick.h>
 #include <vtkProperty.h>
+#include <vtkPLYWriter.h>
+
+#include <stdio.h>
 
 #include "optimal_nonrigid_icp.h"
 
@@ -18,11 +22,19 @@ int main(int argc, char**argv)
 	std::string template_filename = argv[1];
 	std::string target_filename = argv[2];
 
-	vtkSmartPointer<vtkOBJReader> template_reader = vtkSmartPointer<vtkOBJReader>::New();
+	// vtkSmartPointer<vtkOBJReader> template_reader = vtkSmartPointer<vtkOBJReader>::New();
+	// template_reader->SetFileName(template_filename.c_str());
+	// template_reader->Update();
+
+	// vtkSmartPointer<vtkOBJReader> target_reader = vtkSmartPointer<vtkOBJReader>::New();
+	// target_reader->SetFileName(target_filename.c_str());
+	// target_reader->Update();
+
+	vtkSmartPointer<vtkPLYReader> template_reader = vtkSmartPointer<vtkPLYReader>::New();
 	template_reader->SetFileName(template_filename.c_str());
 	template_reader->Update();
 
-	vtkSmartPointer<vtkOBJReader> target_reader = vtkSmartPointer<vtkOBJReader>::New();
+	vtkSmartPointer<vtkPLYReader> target_reader = vtkSmartPointer<vtkPLYReader>::New();
 	target_reader->SetFileName(target_filename.c_str());
 	target_reader->Update();
 
@@ -32,6 +44,10 @@ int main(int argc, char**argv)
 	OptimalNonrigidICP oni(template_polyData, target_polyData);
 	oni.init();
 	std::cout << "init() finished!" << std::endl;
+
+
+	vtkSmartPointer<vtkPLYWriter> plyWriter = vtkSmartPointer<vtkPLYWriter>::New();
+	plyWriter->SetInput(template_polyData);
 
 	float alpha = 10.0;
 	float beta = 1.0;
@@ -44,6 +60,11 @@ int main(int argc, char**argv)
 		std::cout << "initCompute() finished!" << std::endl;
 		oni.compute(alpha, beta, gamma);
 		std::cout << "compute() finished!" << std::endl;
+
+		char num_str[100];
+		sprintf(num_str, "%d", i);
+		plyWriter->SetFileName( (template_filename.substr(0, template_filename.find_last_of('.')) + "_" + num_str).c_str() );
+		plyWriter->Write();
 	}
 
 	vtkSmartPointer<vtkPolyDataMapper> template_mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
